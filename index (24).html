@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EclipNex: Journey to the Stars</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #222222;
+            --accent: #00ffaa;
+            --text: #ffffff;
+            --secondary: #444444;
+            --glow: rgba(0, 255, 170, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(34, 34, 34, 0.95);
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            width: 50%;
+            padding: 0 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline-year {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .chapter {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .acknowledgments {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid var(--accent);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="logo">EclipNex</a>
+        <div class="nav-links">
+            <a href="#abstract">Abstract</a>
+            <a href="#introduction">Introduction</a>
+            <a href="#milestones">Milestones</a>
+            <a href="#technology">Technology</a>
+            <a href="#statistics">Statistics</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="title">From Quantum Computers to Intergalactic Journeys</h1>
+            <h2 class="subtitle">The EclipNex Story</h2>
+            <p>A Final-Year Thesis by Kai Solan<br>
+            Bachelor of Intergalactic Exploration and Technology (BIET)<br>
+            Lyra Prime University, Sirius Colony</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <section class="section" data-aos="fade-up" id="abstract">
+            <h2 class="section-title">Abstract</h2>
+            <p>This thesis chronicles the extraordinary evolution of humanity's technological and exploratory advancements—from the first commercial quantum computer in 2030 to the pioneering intergalactic expeditions of the 22nd century. Central to this narrative is EclipNex, a groundbreaking company founded in 2044 that revolutionized space exploration, tourism, and scientific research.</p>
+        </section>
+
+        <section class="section" data-aos="fade-up" id="introduction">
+            <h2 class="section-title">Introduction</h2>
+            <div class="chapter">
+                <p>Humanity has always looked to the stars—first with wonder, then with ambition. From the first journeys across oceans to landing on the moon, we've long sought to expand our horizons. But who would have believed just a century ago that we'd be booking vacations to distant planets?</p>
+                <p>Now, in 2124, humanity stands on the cusp of intergalactic travel, and EclipNex is at the heart of it all. Founded in 2044, the company has been a pioneer in space tourism, research, and technology.</p>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up" id="milestones">
+            <h2 class="section-title">Notable Milestones</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2044</div>
+                        <p>Founding of EclipNex in Germany</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2045</div>
+                        <p>Launch of the First Research Facility on the Moon</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2055</div>
+                        <p>First Civilian Space Station: EclipNex Orbital Hub</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2057</div>
+                        <p>First Intergalactic Voyage</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2060</div>
+                        <p>Introduction of Quantum Navigation System (QNS)</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2124</div>
+                        <p>Discovery of Planet Petropia</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up" id="technology">
+            <h2 class="section-title">The Technology Behind the Vision</h2>
+            <div class="chapter">
+                <p>EclipNex's rise was built on technological innovations, particularly the revolutionary impact of quantum computing. Our advanced Quantum Navigation Systems (QNS) enabled precise, real-time navigation across vast intergalactic distances.</p>
+                <p>The development of Cryogenic Suspension technology made it possible for humans to survive long-term space travel, while AI-Enhanced Astrobiology Tools revolutionized our understanding of alien ecosystems.</p>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up" id="statistics">
+            <h2 class="section-title">Key Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="zoom-in">
+                    <div class="stat-number">86</div>
+                    <div class="stat-label">Intergalactic Missions Completed</div>
+                </div>
+                <div class="stat-card" data-aos="zoom-in">
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Planets Studied</div>
+                </div>
+                <div class="stat-card" data-aos="zoom-in">
+                    <div class="stat-number">4M+</div>
+                    <div class="stat-label">Tourists Served</div>
+                </div>
+                <div class="stat-card" data-aos="zoom-in">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Successful Terraforming</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up" id="conclusion">
+            <h2 class="section-title">Conclusion</h2>
+            <div class="chapter">
+                <p>As I near the completion of my studies at Lyra Prime University, I look out at the stars, reflecting on the monumental progress humanity has made. From quantum computing to the luxury intergalactic cruises of today, the story of EclipNex is one of incredible innovation, resilience, and vision.</p>
+                <p>The universe is vast, but it's no longer a realm reserved for a few pioneers. It's a place where we all have a chance to make our mark, whether through research, tourism, or new explorations.</p>
+            </div>
+        </section>
+
+        <div class="acknowledgments" data-aos="fade-up">
+            <p>Signed,<br>Kai Solan</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 200
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
